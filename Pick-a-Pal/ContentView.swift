@@ -15,10 +15,23 @@ struct ContentView: View {
     
     var body: some View {
         VStack {
+            VStack(spacing: 8) {
+                Image(systemName: "person.3.sequence.fill")
+                    .foregroundStyle(.tint)
+                    .symbolRenderingMode(.hierarchical)
+                Text("Pick-a-Pal")
+            }
+            .font(.title)
+            .bold()
+
             Text(pickedName.isEmpty ? " " : pickedName)
+                .font(.title2)
+                .bold()
+                .foregroundStyle(.tint)
             List {
                 ForEach(names, id: \.description) { name in Text(name) }
             }
+            .clipShape(RoundedRectangle(cornerRadius: 8))
             
             TextField("Add Name", text: $nameToAdd)
                 .autocorrectionDisabled()
