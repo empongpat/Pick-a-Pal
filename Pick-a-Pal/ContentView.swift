@@ -8,10 +8,11 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var names: [String] = ["Elisha", "Andre", "Jasmine", "Po-Chun"]
+    @State private var names: [String] = []
     @State private var nameToAdd = ""
     @State private var pickedName = ""
     @State private var shouldRemovePickedName = false
+    @State private var showAlert = false
     
     var body: some View {
         VStack {
@@ -47,6 +48,10 @@ struct ContentView: View {
             Toggle("Remove when picked", isOn: $shouldRemovePickedName)
             
             Button {
+                if names.isEmpty {
+                    showAlert = true
+                    return
+                }
                 if let randomName = names.randomElement() {
                     pickedName = randomName
                     
@@ -63,6 +68,10 @@ struct ContentView: View {
                     .padding(.vertical, 8)
                     .padding(.horizontal, 16)
                 
+            }
+            .alert(isPresented: $showAlert) {
+                Alert(title: Text("Name List is Empty"),
+                message: Text("Please add several names to make the app works correctly."))
             }
             .buttonStyle(.borderedProminent)
             .font(.title2)
